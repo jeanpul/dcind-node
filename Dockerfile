@@ -12,17 +12,16 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 # Install Chrome.
 RUN apt-get update && apt-get -y install google-chrome-stable
 
-# Install node
-RUN wget -qO- https://deb.nodesource.com/setup_12.4 | sudo -E bash - \
-    && apt-get install -y nodejs
-
-# Install docker ce
 RUN apt-get install -y \
         apt-transport-https \
         ca-certificates \
         curl \
         software-properties-common
 
+# Install node
+RUN curl -o /usr/local/bin/n https://raw.githubusercontent.com/visionmedia/n/master/bin/n && chmod +x /usr/local/bin/n && n 12.4.0
+
+# Install docker ce
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 RUN add-apt-repository \
