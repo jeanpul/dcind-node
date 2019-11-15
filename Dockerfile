@@ -37,4 +37,9 @@ RUN chmod +x /usr/local/bin/docker-compose
 
 COPY entrypoint.sh /bin/entrypoint.sh
 
-ENTRYPOINT ["entrypoint.sh"]
+RUN useradd -rm -d /home/jeanpul -s /bin/bash -g root -G docker,sudo -u 1000 jeanpul
+
+# USER jeanpul
+WORKDIR /home/jeanpul
+
+ENTRYPOINT ["entrypoint.sh", "sudo", "su", "jeanpul"]
